@@ -6,6 +6,8 @@
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
+// @updateURL    https://raw.githubusercontent.com/KTOOGER/Your-Genshin-Impact-Characters/master/Your%20Genshin%20Impact%20Characters.js
+// @downloadURL  https://raw.githubusercontent.com/KTOOGER/Your-Genshin-Impact-Characters/master/Your%20Genshin%20Impact%20Characters.js
 // ==/UserScript==
 
 function initGM(characters) {
@@ -36,7 +38,6 @@ function initGM(characters) {
 
   let gms = initGM(characters)
 
-  console.log(window.location.pathname)
   if (window.location.pathname === "/settings") {
       gms.open()
   }
