@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         Your Genshin Impact Characters
+// @namespace    https://github.com/KTOOGER
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @version      0.1.0
+// @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
 // ==/UserScript==
