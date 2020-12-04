@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Your Genshin Impact Characters
-// @namespace    https://github.com/KTOOGER
+// @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.1.0
+// @version      0.2.0
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -13,33 +13,40 @@
 function initGM(characters) {
   let settings = {}
   for (let el in characters) {
-      settings[characters[el]] = {
-              'label': characters[el],
-              'type': 'checkbox',
-              'default': false
-          }
+    settings[characters[el]] = {
+      'label': characters[el],
+      'type': 'checkbox',
+      'default': false
+    }
   }
   GM_config.init({
-      'id': 'Characters',
-      'fields': settings,
-      'events': {
-          'close': function() {window.history.back()}
+    'id': 'Characters',
+    'fields': settings,
+    'events': {
+      'close': function () {
+        if (window.location.pathname === "/settings") {
+          if (document.referrer.search(/^https?:\/\/genshin\.gg\/.*/) !== -1)
+            window.history.back()
+          else
+            document.location.href = "https://genshin.gg/";
+        }
       }
+    }
   });
   return GM_config
 }
 
-(function() {
+(function () {
   'use strict';
 
   root.querySelector(".dropdown-menu").insertAdjacentHTML("beforeend", '<a class="nav-link" href="/settings">Settings</a>')
 
-  let characters = ["Amber","Barbara","Beidou","Bennett","Chongyun","Diluc","Diona","Fischl","Jean","Kaeya","Keqing","Klee","Lisa","Mona","Ningguang","Noelle","Qiqi","Razor","Sucrose","Tartaglia","Traveler(Anemo)","Traveler(Geo)","Venti","Zhongli","Xiangling","Xiao","Xingqiu","Xinyan"]
+  let characters = ["Amber", "Barbara", "Beidou", "Bennett", "Chongyun", "Diluc", "Diona", "Fischl", "Jean", "Kaeya", "Keqing", "Klee", "Lisa", "Mona", "Ningguang", "Noelle", "Qiqi", "Razor", "Sucrose", "Tartaglia", "Traveler(Anemo)", "Traveler(Geo)", "Venti", "Zhongli", "Xiangling", "Xiao", "Xingqiu", "Xinyan"]
 
   let gms = initGM(characters)
 
   if (window.location.pathname === "/settings") {
-      gms.open()
+    gms.open()
   }
 
   let style = document.createElement('style');
