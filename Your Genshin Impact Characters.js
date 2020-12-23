@@ -2,7 +2,7 @@
 // @name         Your Genshin Impact Characters
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.3.0
+// @version      0.3.1
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -38,6 +38,7 @@ function initGM(characters) {
 
   const site = document.location.host
   const characters = {
+    "Albedo": {},
     "Amber": {},
     "Barbara": {},
     "Beidou": {},
