@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.3.2
+// @version      0.3.3
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -49,6 +49,7 @@ function initGM(characters) {
     "Diona": {},
     "Fischl": {},
     "Ganyu": {},
+    "HuTao": {},
     "Jean": {},
     "Kaeya": {},
     "Keqing": {},
@@ -87,11 +88,11 @@ function initGM(characters) {
   }
 
   let style = document.createElement('style');
-  let text
+  let text = 'iframe#Characters {z-index: 99999 !important}\n'
   switch (site) {
     case 'genshin.gg':
       root.querySelector(".dropdown-menu").insertAdjacentHTML("beforeend", '<a class="nav-link" href="#settings">Settings</a>')
-      text = "a.character-portrait{ opacity:0.3333 }"
+      text += "a.character-portrait{ opacity:0.3333 }"
       for (let el in characters) {
         if (gms.get(el)) {
           text += `\na.character-portrait[href="/characters/${characters[el][site] || el}"] { opacity: 1 }`
@@ -100,10 +101,10 @@ function initGM(characters) {
       break;
     case 'genshin.honeyhunterworld.com':
       sidebar2.querySelector(".textwidget.custom-html-widget").insertAdjacentHTML("beforeend", '<a href="#settings"><div class="widget_menu_item"><div class="menu_icon_wrapper"><img class="widget_menu_icon" src="https://genshin.honeyhunterworld.com/img/icons/char_35.png"></div><span class="menu_item_text">Settings</span></div></a>')
-      text = 'a > img.char_portrait_card_sea, .sea_item_used_by_char > a > img { opacity: 0.3333 }'
+      text += 'a > img.char_portrait_card_sea, .sea_item_used_by_char > a > img { opacity: 0.3333 }'
       for (let el in characters) {
         if (gms.get(el)) {
-          text += `\na[href="https://genshin.honeyhunterworld.com/db/char/${characters[el][site] || el.toLowerCase()}/"] > img { opacity: 1 }`
+          text += `\na[href="/db/char/${characters[el][site] || el.toLowerCase()}/"] > img { opacity: 1 }`
         }
       }
   }
