@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.3.3
+// @version      0.3.4
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -60,6 +60,7 @@ function initGM(characters) {
     "Noelle": {},
     "Qiqi": {},
     "Razor": {},
+    "Rosaria": {},
     "Sucrose": {},
     "Tartaglia": {},
     "Traveler(Anemo)": {
