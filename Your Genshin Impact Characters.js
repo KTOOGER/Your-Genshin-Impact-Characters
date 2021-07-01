@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.3.6
+// @version      0.3.7
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -54,6 +54,7 @@
     "HuTao": {},
     "Jean": {},
     "Kaeya": {},
+    "Kazuha": {},
     "Keqing": {},
     "Klee": {},
     "Lisa": {},
