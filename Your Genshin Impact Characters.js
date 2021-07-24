@@ -42,6 +42,7 @@
   const CHARACTERS = {
     "Albedo": {},
     "Amber": {},
+    "Ayaka": {},
     "Barbara": {},
     "Beidou": {},
     "Bennett": {},
