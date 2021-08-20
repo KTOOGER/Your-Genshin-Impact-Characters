@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.3.8
+// @version      0.3.9
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -65,6 +65,7 @@
     "Qiqi": {},
     "Razor": {},
     "Rosaria": {},
+    "Sayu": {},
     "Sucrose": {},
     "Tartaglia": {},
     "Traveler(Anemo)": {
@@ -73,9 +74,13 @@
     "Traveler(Geo)": {
       "genshin.honeyhunterworld.com": ["traveler_girl_geo", "traveler_boy_geo"]
     },
+    "Traveler(Electro)": {
+      "genshin.honeyhunterworld.com": ["traveler_girl_electro", "traveler_boy_electro"]
+    },
     "Yanfei": {
       "genshin.honeyhunterworld.com": "feiyan"
     },
+    "Yoimiya": {},
     "Venti": {},
     "Zhongli": {},
     "Xiangling": {},
