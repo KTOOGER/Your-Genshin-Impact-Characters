@@ -41,6 +41,7 @@
 
   const CHARACTERS = {
     "Albedo": {},
+    "Aloy": {},
     "Amber": {},
     "Ayaka": {},
     "Barbara": {},
@@ -63,8 +64,12 @@
     "Ningguang": {},
     "Noelle": {},
     "Qiqi": {},
+    "Raiden": {
+      "genshin.honeyhunterworld.com": "shougun"
+    },
     "Razor": {},
     "Rosaria": {},
+    "Sara": {},
     "Sayu": {},
     "Sucrose": {},
     "Tartaglia": {},
