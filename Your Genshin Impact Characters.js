@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.3.11
+// @version      0.3.12
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -74,6 +74,7 @@
     "Sayu": {},
     "Sucrose": {},
     "Tartaglia": {},
+    "Thoma": {},
     "Traveler(Anemo)": {
       "genshin.honeyhunterworld.com": ["traveler_girl_anemo", "traveler_boy_anemo"]
     },
