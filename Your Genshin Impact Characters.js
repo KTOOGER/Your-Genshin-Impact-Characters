@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.3.12
+// @version      0.3.13
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -53,7 +53,9 @@
     "Eula": {},
     "Fischl": {},
     "Ganyu": {},
+    "Gorou": {},
     "HuTao": {},
+    "Itto": {},
     "Jean": {},
     "Kaeya": {},
     "Kazuha": {},
@@ -72,6 +74,7 @@
     "Rosaria": {},
     "Sara": {},
     "Sayu": {},
+    "Shenhe": {},
     "Sucrose": {},
     "Tartaglia": {},
     "Thoma": {},
@@ -84,16 +87,19 @@
     "Traveler(Electro)": {
       "genshin.honeyhunterworld.com": ["traveler_girl_electro", "traveler_boy_electro"]
     },
+    "Venti": {},
+    "Xiangling": {},
+    "Xiao": {},
+    "Xingqiu": {},
+    "Xinyan": {},
+    "YaeMiko": {},
     "Yanfei": {
       "genshin.honeyhunterworld.com": "feiyan"
     },
     "Yoimiya": {},
-    "Venti": {},
+    "YunJin": {},
     "Zhongli": {},
-    "Xiangling": {},
-    "Xiao": {},
-    "Xingqiu": {},
-    "Xinyan": {}
+    
   }
 
   const charNameRules = {
