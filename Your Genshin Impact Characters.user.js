@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      0.4.0
+// @version      1.0.0
 // @license      MIT
 // @author       KTOOGER
 // @match        https://genshin.gg/*
@@ -12,32 +12,6 @@
 
 (function () {
   'use strict';
-
-  const site = document.location.host
-
-  function initGM(CHARACTERS) {
-    let settings = {}
-    for (let el in CHARACTERS) {
-      settings[el] = {
-        'label': el,
-        'type': 'checkbox',
-        'default': false
-      }
-    }
-    GM_config.init({
-      'id': 'Characters',
-      'fields': settings,
-      'events': {
-        'save': function () {
-          document.location.href = document.location.pathname
-        },
-        'close': function () {
-          document.location.href = document.location.pathname
-        }
-      }
-    });
-    return GM_config
-  }
 
   const CHARACTERS = {
     "Albedo": {},
@@ -98,8 +72,12 @@
     },
     "Yoimiya": {},
     "YunJin": {},
-    "Zhongli": {},
-    
+    "Zhongli": {}
+  }
+
+  const HASHES = {
+    "#settings": () => gms.open(),
+    "#import": () => importCharacters()
   }
 
   const charNameRules = {
@@ -132,38 +110,72 @@
     return result
   }
 
-  let gms = initGM(CHARACTERS)
-
-  if (document.location.hash === "#settings") {
-    gms.open()
-  }
-
-  window.onhashchange = () => {
-    if (document.location.hash === "#settings")
-      gms.open()
-  }
-
-  let text = 'iframe#Characters {z-index: 99999 !important}\n'
-  let characters = getUserCharsFor(site)
-  switch (site) {
-    case 'genshin.gg':
-      root.querySelector(".dropdown-menu").insertAdjacentHTML("beforeend", '<a class="nav-link" href="#settings">Settings</a>')
-      text += "a.character-portrait{ opacity:0.3333 }"
-      for (let el in characters) {
-        text += `\na.character-portrait[href^="/characters/${characters[el]}"] { opacity: 1 }`
+  function initGM(CHARACTERS) {
+    let settings = {}
+    for (let el in CHARACTERS) {
+      settings[el] = {
+        'label': el,
+        'type': 'checkbox',
+        'default': false
       }
-      break;
-    case 'genshin.honeyhunterworld.com':
-      sidebar2.querySelector(".textwidget.custom-html-widget").insertAdjacentHTML("beforeend", '<a href="#settings"><div class="widget_menu_item"><div class="menu_icon_wrapper"><img class="widget_menu_icon" src="https://genshin.honeyhunterworld.com/img/icons/char_35.png"></div><span class="menu_item_text">Settings</span></div></a>')
-      text += 'a > img.char_portrait_card_sea, .sea_item_used_by_char > a > img { opacity: 0.3333 }'
-      for (let el in characters) {
-        text += `\na[href^="/db/char/${characters[el]}"] > img { opacity: 1 }`
+    }
+    GM_config.init({
+      'id': 'Characters',
+      'fields': settings,
+      'events': {
+        'save': function () {
+          document.location.href = document.location.pathname
+        },
+        'close': function () {
+          document.location.href = document.location.pathname
+        }
       }
-      break;
+    });
+    return GM_config
   }
 
-  let style = document.createElement('style');
-  style.innerHTML = text;
-  document.head.append(style);
+  function hashCheck() {
+    for (let hash in HASHES) {
+      if (document.location.hash === hash) {
+        HASHES[hash]()
+        break
+      }
+    }
+  }
 
+  function addHtml() {
+    let text = 'iframe#Characters {z-index: 99999 !important}\n'
+    let characters = getUserCharsFor(site)
+    switch (site) {
+      case 'genshin.gg':
+        root.querySelector(".dropdown-menu").insertAdjacentHTML("beforeend", '<a class="nav-link" href="#settings">Settings</a>')
+        text += "a.character-portrait{ opacity:0.3333 }"
+        for (let el in characters) {
+          text += `\na.character-portrait[href^="/characters/${characters[el]}"] { opacity: 1 }`
+        }
+        break;
+      case 'genshin.honeyhunterworld.com':
+        sidebar2.querySelector(".textwidget.custom-html-widget").insertAdjacentHTML("beforeend", '<a href="#settings"><div class="widget_menu_item"><div class="menu_icon_wrapper"><img class="widget_menu_icon" src="https://genshin.honeyhunterworld.com/img/icons/char_35.png"></div><span class="menu_item_text">Settings</span></div></a>')
+        text += 'a > img.char_portrait_card_sea, .sea_item_used_by_char > a > img { opacity: 0.3333 }'
+        for (let el in characters) {
+          text += `\na[href^="/db/char/${characters[el]}"] > img { opacity: 1 }`
+        }
+        break;
+    }
+
+    let style = document.createElement('style');
+    style.innerHTML = text;
+    document.head.append(style);
+  }
+
+  function initScript() {
+    hashCheck()
+    window.onhashchange = hashCheck
+
+    addHtml()
+  }
+
+  const site = document.location.host
+  var gms = initGM(CHARACTERS)
+  initScript()
 })();
