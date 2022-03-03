@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      1.0.1
+// @version      1.0.2
 // @license      MIT
 // @author       KTOOGER
 // @grant        GM_getValue
@@ -20,6 +20,7 @@
     "Aloy": {},
     "Amber": {},
     "Ayaka": {},
+    "Ayato": {},
     "Barbara": {},
     "Beidou": {},
     "Bennett": {},
