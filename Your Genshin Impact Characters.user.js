@@ -3,11 +3,13 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      1.1.0
+// @version      1.2.0
 // @license      MIT
 // @author       KTOOGER
 // @grant        GM_getValue
 // @grant        GM_setValue
+// @match        https://genshin-center.com/*
+// @match        https://genshin.chiya.dev/*
 // @match        https://genshin.gg/*
 // @match        https://genshin.honeyhunterworld.com/*
 // ==/UserScript==
@@ -19,8 +21,12 @@
     "Albedo": {},
     "Aloy": {},
     "Amber": {},
-    "Ayaka": {},
-    "Ayato": {},
+    "Ayaka": {
+      "genshin-center.com": "kamisatoayaka"
+    },
+    "Ayato": {
+      "genshin-center.com": "kamisatoayato"
+    },
     "Barbara": {},
     "Beidou": {},
     "Bennett": {},
@@ -31,37 +37,54 @@
     "Fischl": {},
     "Ganyu": {},
     "Gorou": {},
-    "HuTao": {},
-    "Itto": {},
+    "HuTao": {
+      "genshin.chiya.dev": "Hu Tao"
+    },
+    "Itto": {
+      "genshin-center.com": "aratakiitto"
+    },
     "Jean": {},
     "Kaeya": {},
-    "Kazuha": {},
+    "Kazuha": {
+      "genshin-center.com": "kaedeharakazuha"
+    },
     "Keqing": {},
     "Klee": {},
-    "Kokomi": {},
+    "Kokomi": {
+      "genshin-center.com": "sangonomiyakokomi"
+    },
     "Lisa": {},
     "Mona": {},
     "Ningguang": {},
     "Noelle": {},
     "Qiqi": {},
     "Raiden": {
+      "genshin.chiya.dev": "Raiden Shogun",
       "genshin.honeyhunterworld.com": "shougun"
     },
     "Razor": {},
     "Rosaria": {},
-    "Sara": {},
+    "Sara": {
+      "genshin-center.com": "kujousara"
+    },
     "Sayu": {},
     "Shenhe": {},
+    "Shinobu": {},
     "Sucrose": {},
-    "Tartaglia": {},
+    "Tartaglia": {
+      "genshin.gg": "Childe"
+    },
     "Thoma": {},
     "Traveler(Anemo)": {
+      "genshin-center.com": "traveler",
       "genshin.honeyhunterworld.com": ["traveler_girl_anemo", "traveler_boy_anemo"]
     },
     "Traveler(Geo)": {
+      "genshin-center.com": "traveler",
       "genshin.honeyhunterworld.com": ["traveler_girl_geo", "traveler_boy_geo"]
     },
     "Traveler(Electro)": {
+      "genshin-center.com": "traveler",
       "genshin.honeyhunterworld.com": ["traveler_girl_electro", "traveler_boy_electro"]
     },
     "Venti": {},
@@ -69,13 +92,17 @@
     "Xiao": {},
     "Xingqiu": {},
     "Xinyan": {},
-    "YaeMiko": {},
+    "YaeMiko": {
+      "genshin.chiya.dev": "Yae Miko"
+    },
     "Yanfei": {
       "genshin.honeyhunterworld.com": "feiyan"
     },
     "Yelan": {},
     "Yoimiya": {},
-    "YunJin": {},
+    "YunJin": {
+      "genshin.chiya.dev": "Yun Jin"
+    },
     "Zhongli": {}
   }
 
@@ -85,24 +112,35 @@
   }
 
   const charNameRules = {
+    "genshin-center.com": (text) => text.toLowerCase(),
     "genshin.honeyhunterworld.com": (text) => text.toLowerCase()
   }
 
   const cssFor = {
-    'genshin.gg': (chars) =>
-      chars.map((char) =>
-        `a.character-portrait[href^="/characters/${char}"] { opacity: 1 }\n`
-      ).join('') + (
-        `a.character-portrait{ opacity:0.3333 }
-        iframe#Characters {z-index: 99999 !important}`
-      ),
-    'genshin.honeyhunterworld.com': (chars) =>
-      (
-        `a img[src^="/img/char"] { opacity: 0.333 }
-        iframe#Characters {z-index: 99999 !important}`
-      ) + chars.map((char) =>
-        `a img[src^="/img/char/${char}"] { opacity: 1 }\n`
-      ).join('')
+    'genshin-center.com': (chars) => {
+      return (
+        `a .CharacterThumbnail_charBox__NsyIF .containedImage { opacity : 0.333 }`
+        + chars.map((char) => `\na[href*="/characters/${char}"] .containedImage {opacity: 1}`).join('')
+      )
+    },
+    'genshin.chiya.dev': (chars) => {
+      return (
+        `.chakra-link :not(.chakra-badge) > * > img[href^="/customize/characters/"]{opacity: 0.333}`
+        + chars.map((char) => `\n.chakra-link img[alt="${char}"] { opacity: 1 }`).join('')
+      )
+    },
+    'genshin.gg': (chars) => {
+      return (
+        chars.map((char) => `a.character-portrait[href^="/characters/${char}"] { opacity: 1 }\n`).join('')
+        + `a.character-portrait{ opacity:0.3333 } iframe#Characters {z-index: 99999 !important}`
+      )
+    },
+    'genshin.honeyhunterworld.com': (chars) => {
+      return (
+        `a img[src^="/img/char"] { opacity: 0.333 } iframe#Characters {z-index: 99999 !important}`
+        + chars.map((char) => `\na img[src^="/img/char/${char}"] { opacity: 1 }`).join('')
+      )
+    }
   }
 
   const addHtmlInterfaceFor = {
@@ -182,11 +220,11 @@
   }
 
   function addHtml(site) {
-    addHtmlInterfaceFor[site]()
+    (addHtmlInterfaceFor[site] || (() => console.log('Interface not added')))()
 
-    let style = document.createElement('style');
-    style.innerHTML = cssFor[site](getUserCharsFor(site));
-    document.head.append(style);
+    let style = document.createElement('style')
+    style.innerHTML = cssFor[site](getUserCharsFor(site))
+    document.head.append(style)
   }
 
   function initScript() {
