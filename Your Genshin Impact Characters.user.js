@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      1.2.0
+// @version      1.2.1
 // @license      MIT
 // @author       KTOOGER
 // @grant        GM_getValue
@@ -125,8 +125,8 @@
     },
     'genshin.chiya.dev': (chars) => {
       return (
-        `.chakra-link :not(.chakra-badge) > * > img[href^="/customize/characters/"]{opacity: 0.333}`
-        + chars.map((char) => `\n.chakra-link img[alt="${char}"] { opacity: 1 }`).join('')
+        `.chakra-link[href^="/customize/characters/"] :not(.chakra-badge) > * > img{opacity: 0.333}`
+        + chars.map((char) => `\n.chakra-link[href^="/customize/characters/"] img[alt="${char}"] { opacity: 1 }`).join('')
       )
     },
     'genshin.gg': (chars) => {
