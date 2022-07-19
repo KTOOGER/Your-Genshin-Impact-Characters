@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      1.2.1
+// @version      1.2.2
 // @license      MIT
 // @author       KTOOGER
 // @grant        GM_getValue
@@ -37,6 +37,10 @@
     "Fischl": {},
     "Ganyu": {},
     "Gorou": {},
+    "Heizou": {
+      "genshin-center.com": "shikanoinheizou",
+      "genshin.honeyhunterworld.com": "heizo"
+    },
     "HuTao": {
       "genshin.chiya.dev": "Hu Tao"
     },
