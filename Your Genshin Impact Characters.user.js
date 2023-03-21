@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      1.2.2
+// @version      1.2.3
 // @license      MIT
 // @author       KTOOGER
 // @grant        GM_getValue
@@ -19,6 +19,7 @@
 
   const CHARACTERS = {
     "Albedo": {},
+    "Alhaitham": {},
     "Aloy": {},
     "Amber": {},
     "Ayaka": {
@@ -30,10 +31,16 @@
     "Barbara": {},
     "Beidou": {},
     "Bennett": {},
+    "Candace": {},
     "Chongyun": {},
+    "Collei": {},
+    "Cyno": {},
+    "Dehya": {},
     "Diluc": {},
     "Diona": {},
+    "Dori": {},
     "Eula": {},
+    "Faruzan": {},
     "Fischl": {},
     "Ganyu": {},
     "Gorou": {},
@@ -57,8 +64,12 @@
     "Kokomi": {
       "genshin-center.com": "sangonomiyakokomi"
     },
+    "Layla": {},
     "Lisa": {},
+    "Mika": {},
     "Mona": {},
+    "Nahida": {},
+    "Nilou": {},
     "Ningguang": {},
     "Noelle": {},
     "Qiqi": {},
@@ -73,15 +84,23 @@
     },
     "Sayu": {},
     "Shenhe": {},
-    "Shinobu": {},
+    "Shinobu": {
+      "genshin.gg": "kukishinobu",
+      "genshin-center.com": "kukishinobu"
+    },
     "Sucrose": {},
     "Tartaglia": {
-      "genshin.gg": "Childe"
+      "genshin.gg": "childe"
     },
     "Thoma": {},
+    "Tighnari": {},
     "Traveler(Anemo)": {
       "genshin-center.com": "traveler",
       "genshin.honeyhunterworld.com": ["traveler_girl_anemo", "traveler_boy_anemo"]
+    },
+    "Traveler(Dendro)": {
+      "genshin-center.com": "traveler",
+      "genshin.honeyhunterworld.com": ["traveler_girl_dendro", "traveler_boy_dendro"]
     },
     "Traveler(Geo)": {
       "genshin-center.com": "traveler",
@@ -92,6 +111,7 @@
       "genshin.honeyhunterworld.com": ["traveler_girl_electro", "traveler_boy_electro"]
     },
     "Venti": {},
+    "Wanderer": {},
     "Xiangling": {},
     "Xiao": {},
     "Xingqiu": {},
@@ -102,6 +122,7 @@
     "Yanfei": {
       "genshin.honeyhunterworld.com": "feiyan"
     },
+    "Yaoyao": {},
     "Yelan": {},
     "Yoimiya": {},
     "YunJin": {
@@ -116,6 +137,7 @@
   }
 
   const charNameRules = {
+    "genshin.gg": (text) => text.toLowerCase(),
     "genshin-center.com": (text) => text.toLowerCase(),
     "genshin.honeyhunterworld.com": (text) => text.toLowerCase()
   }
