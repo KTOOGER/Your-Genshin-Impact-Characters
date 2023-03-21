@@ -3,13 +3,12 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      1.2.4
+// @version      1.2.5
 // @license      MIT
 // @author       KTOOGER
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @match        https://genshin-center.com/*
-// @match        https://genshin.chiya.dev/*
 // @match        https://genshin.gg/*
 // @match        https://genshin.honeyhunterworld.com/*
 // ==/UserScript==
@@ -52,7 +51,6 @@
       "genshin.honeyhunterworld.com": "Shikanoin Heizou"
     },
     "HuTao": {
-      "genshin.chiya.dev": "Hu Tao",
       "genshin.honeyhunterworld.com": "Hu Tao"
     },
     "Itto": {
@@ -82,7 +80,6 @@
     "Noelle": {},
     "Qiqi": {},
     "Raiden": {
-      "genshin.chiya.dev": "Raiden Shogun",
       "genshin.honeyhunterworld.com": "Raiden Shogun"
     },
     "Razor": {},
@@ -127,7 +124,6 @@
     "Xingqiu": {},
     "Xinyan": {},
     "YaeMiko": {
-      "genshin.chiya.dev": "Yae Miko",
       "genshin.honeyhunterworld.com": "Yae Miko"
     },
     "Yanfei": {},
@@ -135,7 +131,6 @@
     "Yelan": {},
     "Yoimiya": {},
     "YunJin": {
-      "genshin.chiya.dev": "Yun Jin",
       "genshin.honeyhunterworld.com": "Yun Jin"
     },
     "Zhongli": {}
@@ -156,12 +151,6 @@
       return (
         `a .CharacterThumbnail_charBox__NsyIF .containedImage { opacity : 0.333 }`
         + chars.highlight.map((char) => `\na[href*="/characters/${char}"] .containedImage {opacity: 1}`).join('')
-      )
-    },
-    'genshin.chiya.dev': (chars) => {
-      return (
-        `.chakra-link[href^="/customize/characters/"] :not(.chakra-badge) > * > img{opacity: 0.333}`
-        + chars.highlight.map((char) => `\n.chakra-link[href^="/customize/characters/"] img[alt="${char}"] { opacity: 1 }`).join('')
       )
     },
     'genshin.gg': (chars) => {
