@@ -3,7 +3,7 @@
 // @namespace    https://github.com/KTOOGER/Your-Genshin-Impact-Characters
 // @description  A userscript that highlights your characters on Genshin Impact sites
 // @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
-// @version      1.2.3
+// @version      1.2.4
 // @license      MIT
 // @author       KTOOGER
 // @grant        GM_getValue
@@ -23,13 +23,16 @@
     "Aloy": {},
     "Amber": {},
     "Ayaka": {
-      "genshin-center.com": "kamisatoayaka"
+      "genshin-center.com": "kamisatoayaka",
+      "genshin.honeyhunterworld.com": "Kamisato Ayaka"
     },
     "Ayato": {
-      "genshin-center.com": "kamisatoayato"
+      "genshin-center.com": "kamisatoayato",
+      "genshin.honeyhunterworld.com": "Kamisato Ayato"
     },
     "Barbara": {},
     "Beidou": {},
+    "Baizhu": {},
     "Bennett": {},
     "Candace": {},
     "Chongyun": {},
@@ -46,23 +49,28 @@
     "Gorou": {},
     "Heizou": {
       "genshin-center.com": "shikanoinheizou",
-      "genshin.honeyhunterworld.com": "heizo"
+      "genshin.honeyhunterworld.com": "Shikanoin Heizou"
     },
     "HuTao": {
-      "genshin.chiya.dev": "Hu Tao"
+      "genshin.chiya.dev": "Hu Tao",
+      "genshin.honeyhunterworld.com": "Hu Tao"
     },
     "Itto": {
-      "genshin-center.com": "aratakiitto"
+      "genshin-center.com": "aratakiitto",
+      "genshin.honeyhunterworld.com": "Arataki Itto"
     },
     "Jean": {},
     "Kaeya": {},
+    "Kaveh": {},
     "Kazuha": {
-      "genshin-center.com": "kaedeharakazuha"
+      "genshin-center.com": "kaedeharakazuha",
+      "genshin.honeyhunterworld.com": "Kaedehara Kazuha"
     },
     "Keqing": {},
     "Klee": {},
     "Kokomi": {
-      "genshin-center.com": "sangonomiyakokomi"
+      "genshin-center.com": "sangonomiyakokomi",
+      "genshin.honeyhunterworld.com": "Sangonomiya Kokomi"
     },
     "Layla": {},
     "Lisa": {},
@@ -75,18 +83,20 @@
     "Qiqi": {},
     "Raiden": {
       "genshin.chiya.dev": "Raiden Shogun",
-      "genshin.honeyhunterworld.com": "shougun"
+      "genshin.honeyhunterworld.com": "Raiden Shogun"
     },
     "Razor": {},
     "Rosaria": {},
     "Sara": {
-      "genshin-center.com": "kujousara"
+      "genshin-center.com": "kujousara",
+      "genshin.honeyhunterworld.com": "Kujou Sara"
     },
     "Sayu": {},
     "Shenhe": {},
     "Shinobu": {
       "genshin.gg": "kukishinobu",
-      "genshin-center.com": "kukishinobu"
+      "genshin-center.com": "kukishinobu",
+      "genshin.honeyhunterworld.com": "Kuki Shinobu"
     },
     "Sucrose": {},
     "Tartaglia": {
@@ -96,19 +106,19 @@
     "Tighnari": {},
     "Traveler(Anemo)": {
       "genshin-center.com": "traveler",
-      "genshin.honeyhunterworld.com": ["traveler_girl_anemo", "traveler_boy_anemo"]
+      "genshin.honeyhunterworld.com": "Traveler"
     },
     "Traveler(Dendro)": {
       "genshin-center.com": "traveler",
-      "genshin.honeyhunterworld.com": ["traveler_girl_dendro", "traveler_boy_dendro"]
+      "genshin.honeyhunterworld.com": "Traveler"
     },
     "Traveler(Geo)": {
       "genshin-center.com": "traveler",
-      "genshin.honeyhunterworld.com": ["traveler_girl_geo", "traveler_boy_geo"]
+      "genshin.honeyhunterworld.com": "Traveler"
     },
     "Traveler(Electro)": {
       "genshin-center.com": "traveler",
-      "genshin.honeyhunterworld.com": ["traveler_girl_electro", "traveler_boy_electro"]
+      "genshin.honeyhunterworld.com": "Traveler"
     },
     "Venti": {},
     "Wanderer": {},
@@ -117,16 +127,16 @@
     "Xingqiu": {},
     "Xinyan": {},
     "YaeMiko": {
-      "genshin.chiya.dev": "Yae Miko"
+      "genshin.chiya.dev": "Yae Miko",
+      "genshin.honeyhunterworld.com": "Yae Miko"
     },
-    "Yanfei": {
-      "genshin.honeyhunterworld.com": "feiyan"
-    },
+    "Yanfei": {},
     "Yaoyao": {},
     "Yelan": {},
     "Yoimiya": {},
     "YunJin": {
-      "genshin.chiya.dev": "Yun Jin"
+      "genshin.chiya.dev": "Yun Jin",
+      "genshin.honeyhunterworld.com": "Yun Jin"
     },
     "Zhongli": {}
   }
@@ -138,33 +148,33 @@
 
   const charNameRules = {
     "genshin.gg": (text) => text.toLowerCase(),
-    "genshin-center.com": (text) => text.toLowerCase(),
-    "genshin.honeyhunterworld.com": (text) => text.toLowerCase()
+    "genshin-center.com": (text) => text.toLowerCase()
   }
 
   const cssFor = {
     'genshin-center.com': (chars) => {
       return (
         `a .CharacterThumbnail_charBox__NsyIF .containedImage { opacity : 0.333 }`
-        + chars.map((char) => `\na[href*="/characters/${char}"] .containedImage {opacity: 1}`).join('')
+        + chars.highlight.map((char) => `\na[href*="/characters/${char}"] .containedImage {opacity: 1}`).join('')
       )
     },
     'genshin.chiya.dev': (chars) => {
       return (
         `.chakra-link[href^="/customize/characters/"] :not(.chakra-badge) > * > img{opacity: 0.333}`
-        + chars.map((char) => `\n.chakra-link[href^="/customize/characters/"] img[alt="${char}"] { opacity: 1 }`).join('')
+        + chars.highlight.map((char) => `\n.chakra-link[href^="/customize/characters/"] img[alt="${char}"] { opacity: 1 }`).join('')
       )
     },
     'genshin.gg': (chars) => {
       return (
-        chars.map((char) => `a.character-portrait[href^="/characters/${char}"] { opacity: 1 }\n`).join('')
-        + `a.character-portrait{ opacity:0.3333 } iframe#Characters {z-index: 99999 !important}`
+        chars.highlight.map((char) => `a.character-portrait[href^="/characters/${char}"]>img, a.tierlist-portrait[href^="/characters/${char}"] > .tierlist-icon-wrapper { opacity: 1 }\n`).join('')
+        + `a.character-portrait>img, a.tierlist-portrait > .tierlist-icon-wrapper { opacity:0.3333 } iframe#Characters {z-index: 99999 !important}`
       )
     },
     'genshin.honeyhunterworld.com': (chars) => {
       return (
-        `a img[src^="/img/char"] { opacity: 0.333 } iframe#Characters {z-index: 99999 !important}`
-        + chars.map((char) => `\na img[src^="/img/char/${char}"] { opacity: 1 }`).join('')
+        `iframe#Characters {z-index: 99999 !important}`
+        + chars.highlight.map((char) => `\na .itempic_cont img[alt="${char}"] { opacity: 1 }`).join('')
+        + chars.other.map((char) => `\na .itempic_cont img[alt="${char}"] { opacity: 0.333 }`).join('')
       )
     }
   }
@@ -174,14 +184,14 @@
       root.querySelector(".dropdown-menu").insertAdjacentHTML("beforeend", '<a class="nav-link" href="#settings">Settings</a>')
     },
     'genshin.honeyhunterworld.com'() {
-      sidebar2.querySelector(".textwidget.custom-html-widget").insertAdjacentHTML("beforeend",
+      document.querySelector("body > div > div.wp-block-columns > div:nth-child(1) > .ad_sidebar_left").insertAdjacentHTML("beforebegin",
         `<a href="#settings">
-          <div class="widget_menu_item">
-            <div class="menu_icon_wrapper">
-              <img class="widget_menu_icon" src="https://genshin.honeyhunterworld.com/img/icons/char_35.png">
+          <label class="menu_item_text">
+            <div class="menu_item_img_wrap">
+              <img alt="Settings" loading="lazy" class="widget_menu_icon" src="/img/icons/char_35.webp?x37636">
             </div>
-            <span class="menu_item_text">Settings</span>
-          </div>
+            Settings
+          </label>
         </a>`)
     }
   }
@@ -196,17 +206,24 @@
   }
 
   function getUserCharsFor(site) {
-    let result = []
+    let result = {
+      highlight: [],
+      other: []
+    }
     let characters = getAllCharsFor(site)
     for (let char in characters) {
-      if (gms.get(char)) {
-        if (typeof characters[char] === "object") {
-          for (let name in characters[char]) {
-            result.push(characters[char][name])
-          }
-        } else {
-          result.push(characters[char])
+      let names = []
+      if (typeof characters[char] === "object") {
+        for (let name in characters[char]) {
+          names.push(characters[char][name])
         }
+      } else {
+        names.push(characters[char])
+      }
+      if (gms.get(char)) {
+        result.highlight = result.highlight.concat(names)
+      } else {
+        result.other = result.other.concat(names)
       }
     }
     return result
